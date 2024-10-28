@@ -8,7 +8,7 @@ namespace Infrastructure.Data
     {
         public static async Task SeedAsync(StoreContext context, ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger<StoreContextSeed>();
+
 
             try
             {
@@ -46,6 +46,7 @@ namespace Infrastructure.Data
             }
             catch (Exception ex)
             {
+                var logger = loggerFactory.CreateLogger<StoreContextSeed>();
                 logger.LogError(ex, "An error occurred while seeding the database.");
             }
         }
