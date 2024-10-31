@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
 // Configure SQL Server connection
 builder.Services.AddDbContext<StoreContext>(options =>
