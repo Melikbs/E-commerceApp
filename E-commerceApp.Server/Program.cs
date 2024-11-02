@@ -1,4 +1,5 @@
 using Core.Interfaces;
+using E_commerceApp.Server.Helpers;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
-
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Configure SQL Server connection
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -16,7 +17,14 @@ builder.Services.AddDbContext<StoreContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+/*builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5166, listenOptions =>
+    {
+        listenOptions.UseHttps(); // Ensures HTTPS on port 5166
+    });
+});
+*/
 var app = builder.Build();
 
 // Seed the database
@@ -48,6 +56,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 

@@ -7,7 +7,7 @@ namespace Core.Interfaces
     {
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
-        Task<T> GetEntityWithSpec(IStatements<T> state);
+        Task<T> GetEntityWithState(IStatements<T> state);
         Task<IReadOnlyList<T>> ListAsync(IStatements<T> state);
 
     }

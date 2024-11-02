@@ -27,7 +27,7 @@ namespace Infrastructure.Data
         {
             return await _context.Set<T>().ToListAsync();
         }
-        public async Task<T> GetEntityWithSpec(IStatements<T> state)
+        public async Task<T> GetEntityWithState(IStatements<T> state)
         {
             return await ApplyStatement(state).FirstOrDefaultAsync();
         }
