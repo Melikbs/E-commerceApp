@@ -3,6 +3,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Statements;
 using E_commerceApp.Server.Dtos;
+using E_commerceApp.Server.Errors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerceApp.Server.Controllers
@@ -39,10 +40,13 @@ namespace E_commerceApp.Server.Controllers
 
         }
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var state = new ProductsWithTypesAndBrandsStatement(id);
             var product = await _productsRepo.GetEntityWithState(state);
+            if (product == null) return NotFound(new ApiResponse(404));
             return _mapper.Map<Product, ProductToReturnDto>(product);
         }
         [HttpGet("brands")]
