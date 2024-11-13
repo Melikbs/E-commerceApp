@@ -31,9 +31,11 @@ namespace E_commerceApp.Server.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort = "default", int? brandId = null, int? typeId = null)
         {
-            var state = new ProductsWithTypesAndBrandsStatement();
+            // Correct
+            var state = new ProductsWithTypesAndBrandsStatement(sort, brandId, typeId);
+
             var products = await _productsRepo.ListAsync(state);
             return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
 

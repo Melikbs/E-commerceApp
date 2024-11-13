@@ -13,6 +13,18 @@ namespace Infrastructure.Data
             {
                 query = query.Where(state.Criteria);
             }
+            if (state.OrderBy != null)
+            {
+                query = query.OrderBy(state.OrderBy);
+            }
+            if (state.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(state.OrderByDescending);
+            }
+            if (state.IsPagingEnabled)
+            {
+                query = query.Skip(state.Skip).Take(state.Take);
+            }
             query = state.Includes.Aggregate(query, (current, include) => current.Include(include));
             return query;
         }

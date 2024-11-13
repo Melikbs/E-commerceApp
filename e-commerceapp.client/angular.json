@@ -7,7 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "style": "scss"
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -37,8 +38,13 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss",
+              "node_modules/font-Awesome/css/font-awesome.min.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
+
+
             "scripts": []
           },
           "configurations": {
@@ -77,13 +83,17 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "proxyConfig": "src/proxy.conf.js"
+            "proxyConfig": "src/proxy.conf.js",
+            "sslKey": "src/ssl/localhost.key",
+            "sslCert": "src/ssl/localhost.crt",
+            "ssl": true,
+            "port": 4200
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
-        "test": {
+        "test": {s
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
@@ -98,7 +108,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
